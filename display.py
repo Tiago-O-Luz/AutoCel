@@ -6,6 +6,7 @@ from sandautomaton import SandAutomaton, ParticleType
 
 class Display:
     def __init__(self, root, rows=10, cols=10, cell_size=40):
+        self.root = root
         self.rows = rows
         self.cols = cols
         self.cell_size = cell_size
@@ -27,11 +28,12 @@ class Display:
         self.b1bind = self.canvas.bind("<Button-1>", self.set_b1_pressed)
         self.b1bind = self.canvas.bind("<ButtonRelease-1>", self.set_b1_released)
         self.b2bind = self.canvas.bind("<Button-2>", self.reset_canvas)
-        self.mbind = self.canvas.bind("<Motion>", self.handle_add_particle)
+        self.mbind = self.canvas.bind("<Motion>", self.set_add_particle_pos)
         self.b1_pressed = False
         # self.canvas.bind("<Button-3>", self.run)
 
         self.draw_particles(self.simulator.grid)
+        self.loop()
 
     def draw_square(self, row, col, color):
             x1 = col * self.cell_size
@@ -55,8 +57,6 @@ class Display:
         # self.canvas.unbind("<Button-2>", self.b2bind)
         # self.b1bind = self.canvas.bind("<Button-1>", self.stop)
         self.running = True
-        
-        self.loop()
 
     def loop(self):
         if self.running:
@@ -64,13 +64,12 @@ class Display:
             self.draw_particles(grid)
             # self.running += 1
             print(f"finished interaction {self.running}")
-            self.canvas.after(25, self.loop)
-        else:
-            print(f"finished simulation")
+        if self.b1_pressed:
+            self.handle_add_particle()
+        self.canvas.after(16, self.loop)
     
     def start(self):
         self.running = True
-        self.loop()
 
     def stop(self):
         self.running = False
@@ -84,15 +83,20 @@ class Display:
             self.simulator.reset()
             self.draw_particles(self.simulator.grid)
 
-    def handle_add_particle(self, event):
-        if self.b1_pressed:
-            col = event.y // self.cell_size
-            row = event.x // self.cell_size
-            self.simulator.add_particle(col, row)
-            self.draw_square(col, row, ParticleType.SAND.value)
+    def handle_add_particle(self):
+        x = self.add_particle_pos.x
+        y = self.add_particle_pos.y
+        row = x // self.cell_size
+        col = y // self.cell_size
+        self.simulator.add_particle(col, row)
+        self.draw_square(col, row, ParticleType.SAND.value)
     
     def set_b1_pressed(self, e):
+        self.set_add_particle_pos(e)
         self.b1_pressed = True
 
     def set_b1_released(self, e):
         self.b1_pressed = False
+    
+    def set_add_particle_pos(self, e):
+        self.add_particle_pos = e

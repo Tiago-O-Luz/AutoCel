@@ -47,10 +47,11 @@ class SandAutomaton:
         # Calcular a célula clicada
         # col = event.x // self.cell_size
         # row = event.y // self.cell_size
-        if self.grid[row][col] is ParticleType.AIR:  # Verifica se a célula já não está preenchida
-            # Desenhar o quadrado
-            self.grid[row][col] = ParticleType.SAND
-            print(f"particle {row},{col} is SAND")
+        if not(row > self.rows or row < 0 or col > self.cols or col < 0):
+            if self.grid[row][col] is ParticleType.AIR:  # Verifica se a célula já não está preenchida
+                # Desenhar o quadrado
+                self.grid[row][col] = ParticleType.SAND
+                print(f"particle {row},{col} is SAND")
 
 
     def run_iteration(self):

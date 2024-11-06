@@ -63,8 +63,6 @@ class SandAutomaton:
                 pd = self.grid[i+1][j]
                 pdl = self.grid[i+1][j-1]
                 pdr = self.grid[i+1][j+1]
-                # pdll = self.grid[i+1][j-2]
-                # pdrr = self.grid[i+1][j+2]
                 if p == ParticleType.SAND:
                     if pd == ParticleType.AIR:
                         new_grid[i][j] = ParticleType.AIR
@@ -76,12 +74,15 @@ class SandAutomaton:
                         elif pdr == ParticleType.AIR:
                             new_grid[i+1][j+1] = ParticleType.SAND
                             new_grid[i][j] = ParticleType.AIR
-                        # elif pdll == ParticleType.AIR:
-                        #     new_grid[i][j] = ParticleType.AIR
-                        #     new_grid[i+1][j-2] = ParticleType.SAND
-                        # elif pdrr == ParticleType.AIR:
-                        #     new_grid[i][j] = ParticleType.AIR
-                        #     new_grid[i+1][j+2] = ParticleType.SAND
+                        elif j > 2 and j < self.cols: 
+                            pdll = self.grid[i+1][j-2]
+                            pdrr = self.grid[i+1][j+2]
+                            if pdll == ParticleType.AIR:
+                                new_grid[i][j] = ParticleType.AIR
+                                new_grid[i+1][j-2] = ParticleType.SAND
+                            if pdrr == ParticleType.AIR:
+                                new_grid[i][j] = ParticleType.AIR
+                                new_grid[i+1][j+2] = ParticleType.SAND
 
         self.grid = new_grid
     

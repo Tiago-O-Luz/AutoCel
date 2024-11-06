@@ -14,9 +14,9 @@ class Display:
         self.running = False
         self.btn_frame = tk.Frame(root)
         self.canvas = tk.Canvas(root, width=cols*cell_size, height=rows*cell_size, background="black")
-        self.start_btn = tk.Button(self.btn_frame, text="START", command=self.start)
-        self.stop_btn = tk.Button(self.btn_frame, text="STOP", command=self.stop)
-        self.reset_btn = tk.Button(self.btn_frame, text="RESET", command=self.reset)
+        self.start_btn = tk.Button(self.btn_frame, text="START", command=self.start, background="green", foreground="white")
+        self.stop_btn = tk.Button(self.btn_frame, text="STOP", command=self.stop, background="red", foreground="white")
+        self.reset_btn = tk.Button(self.btn_frame, text="RESET", command=self.reset, background="blue", foreground="white")
 
         self.start_btn.pack(side="left")
         self.stop_btn.pack(side="left")

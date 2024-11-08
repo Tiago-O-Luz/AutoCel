@@ -30,7 +30,6 @@ class Display:
         self.b2bind = self.canvas.bind("<Button-2>", self.reset_canvas)
         self.mbind = self.canvas.bind("<Motion>", self.set_add_particle_pos)
         self.b1_pressed = False
-        # self.canvas.bind("<Button-3>", self.run)
 
         self.draw_particles(self.simulator.grid)
         self.loop()
@@ -53,17 +52,13 @@ class Display:
         self.canvas.delete("all")
 
     def run(self, event):
-        # self.canvas.unbind("<Button-1>", self.b1bind)
-        # self.canvas.unbind("<Button-2>", self.b2bind)
-        # self.b1bind = self.canvas.bind("<Button-1>", self.stop)
         self.running = True
 
     def loop(self):
         if self.running:
             grid = self.simulator.run_iteration()
             self.draw_particles(grid)
-            # self.running += 1
-            print(f"finished interaction {self.running}")
+            print(f"finished interaction")
         if self.b1_pressed:
             self.handle_add_particle()
         self.canvas.after(16, self.loop)
@@ -73,9 +68,6 @@ class Display:
 
     def stop(self):
         self.running = False
-        # self.canvas.unbind("<Button-1>", self.b1bind)
-        # self.b1bind = self.canvas.bind("<Button-1>", self.add_particle)
-        # self.b2bind = self.canvas.bind("<Button-2>", self.reset_canvas)
 
     def reset(self):
         if not self.running:

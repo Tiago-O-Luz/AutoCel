@@ -83,8 +83,11 @@ class SandAutomaton:
 
                     # Verifica se a célula abaixo contém areia
                     if pd == ParticleType.SAND:
+                        if new_grid[i+1][j] == ParticleType.AIR:
+                            new_grid[i][j] = ParticleType.AIR
+                            new_grid[i + 1][j] = ParticleType.SAND    
                         # Verifica se a célula abaixo à esquerda está vazia
-                        if pdl == ParticleType.AIR:
+                        elif pdl == ParticleType.AIR:
                             new_grid[i][j] = ParticleType.AIR
                             new_grid[i + 1][j - 1] = ParticleType.SAND
                         # Verifica se a célula abaixo à direita está vazia

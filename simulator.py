@@ -7,7 +7,7 @@ Para rodar salve o código em um arquivo "main.py" e use o comando:
 ou
     python3 -m pip install python
 
-O simulador possui botões de start (inicia interações), stop (pausa interações) e reset (elimina todas as celulas)
+O simulador possui botões de start (inicia interações), stop (pausa interações) e reset (elimina todas as celulas, necessita pausar simulação primeiro)
 Para desenhar células basta clicar com o botão esquerdo do mouse e arrastar pela tela
 """
 
